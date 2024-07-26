@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IoIosCall } from "react-icons/io";
 import { IoMdMail } from "react-icons/io";
 import { TiMinus } from "react-icons/ti";
@@ -10,18 +10,27 @@ import { IoMdArrowDropright } from "react-icons/io";
 
 function Header() {
 
-    const [openDropdown, setOpenDropdown] = useState(null);
     const [openIndex, setOpenIndex] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleMouseEnter = (dropdownName) => {
-        setOpenDropdown(dropdownName);
+    const menuItems = [
+        { title: 'About Us', key: 'about', links: ['An Introduction', 'Director', 'Administration'] },
+        { title: 'Academics', key: 'academics', links: ['Programs', 'Departments', 'Faculty'] },
+        { title: 'Patient & Facilities', key: 'patient', links: ['Services', 'Facilities', 'Appointments'] },
+        { title: 'Cells & Documents', key: 'cells', links: ['Committees', 'Reports', 'Policies'] },
+        { title: 'Notices & Results', key: 'notices', links: ['Announcements', 'Results', 'Circulars'] },
+        { title: 'Media', key: 'media', links: ['Gallery', 'News', 'Events'] },
+        { title: 'Contact', key: 'contact', links: ['Get in Touch', 'Locations', 'Support'] },
+    ];
+
+    const [openDropdown, setOpenDropdown] = useState(null);
+
+    const handleMouseEnter = (dropdown) => {
+        setOpenDropdown(dropdown);
     };
 
     const handleMouseLeave = () => {
-        // setTimeout(() => {
-            setOpenDropdown(null);
-        // }, 100)
+        setOpenDropdown(null);
     };
 
 
@@ -50,8 +59,8 @@ function Header() {
             items: ['Patient Infromation', 'Outdoor Patients `OPD` ', 'Emergency Services', 'Online Registration System']
         },
         {
-            title:"Cells & Documents",
-            items:['Mandatory Disclosure - MCI ','Annual Hospital Statistical Report','National Institutional Ranking Framework']
+            title: "Cells & Documents",
+            items: ['Mandatory Disclosure - MCI ', 'Annual Hospital Statistical Report', 'National Institutional Ranking Framework']
         }
     ];
 
@@ -62,25 +71,27 @@ function Header() {
     useEffect(() => {
         let lastScrollTop = 0;
         const header = document.getElementById('header');
-    
+
         const handleScroll = () => {
-          const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          
-          if (currentScrollTop > lastScrollTop) {
-            // Scrolling down
-            header.classList.add('header-hidden');
-          } else {
-            // Scrolling up
-            header.classList.remove('header-hidden');
-          }
-          
-          lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // For Mobile or negative scrolling
+            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (currentScrollTop > lastScrollTop) {
+                // Scrolling down
+                header.classList.add('header-hidden');
+            } else {
+                // Scrolling up
+                header.classList.remove('header-hidden');
+            }
+
+            lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // For Mobile or negative scrolling
         };
-    
+
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-      }, []);
-    
+    }, []);
+
+
+
 
     return (
         <header id='header' className='w-[100%] ' >
@@ -140,203 +151,39 @@ function Header() {
                 </div>
             </section>
 
-            <section onMouseLeave={handleMouseLeave} className='min-h-[6vh] bg-[#3838d19d] lg:flex items-center justify-center md:block hidden  '>
-                <div className='flex items-center h-[100%] py-1 rounded-md text-[.9rem]'>
-                    <div
-                        className="relative inline-block text-left"
-                        onMouseEnter={() => handleMouseEnter('about')}
+            <section className='min-h-[6vh] bg-[#3838d19d] lg:flex items-center justify-center hidden md:block z-[2] '>
+                {menuItems.map((item) => (
+                    <div key={item.key}
+                        className='relative flex items-center h-[100%] py-1 rounded-md text-[.9rem] z-10 '
+                        onMouseEnter={() => handleMouseEnter(item.key)}
+                        onMouseLeave={handleMouseLeave}
                     >
                         <button
                             className="inline-flex justify-center w-full rounded-md shadow-sm px-4 py-2 text-sm font-medium hover:bg-[#ffffff56] hover:text-[white] focus:outline-none"
                         >
-                            About us
+                            {item.title}
                             <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                             </svg>
                         </button>
-
-                        {openDropdown === 'about' && (
-
-                            <div onMouseLeave={handleMouseLeave} className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                        {openDropdown === item.key && (
+                            <div className="origin-top-right absolute top-[100%] w-56 rounded-md shadow-lg bg-[#ffffff65] p-2  ring-1 ring-black ring-opacity-5">
                                 <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">An Introduction</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Director</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Administration</a>
+                                    {item.links.map((link, index) => (
+                                        <a key={index} href="#" className="block px-4 py-2 text-sm text-gray-700 rounded-md hover:bg-gray-100" role="menuitem">{link}</a>
+                                    ))}
                                 </div>
                             </div>
                         )}
                     </div>
-                </div>
-
-                <div className='flex items-center h-[100%] py-1 rounded-md text-[.9rem]'>
-                    <div
-                        className="relative inline-block text-left"
-                        onMouseEnter={() => handleMouseEnter('academics')}
-
-                    >
-                        <button
-                            className="inline-flex justify-center w-full rounded-md shadow-sm px-4 py-2 text-sm font-medium hover:bg-[#ffffff56] hover:text-[white] focus:outline-none"
-                        >
-                            Academics
-                            <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                            </svg>
-                        </button>
-
-                        {openDropdown === 'academics' && (
-                            <div onMouseLeave={handleMouseLeave} className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                                <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">An Introduction</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Director</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Administration</a>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-
-                <div className='flex items-center h-[100%] py-1 rounded-md text-[.9rem]'>
-                    <div
-                        className="relative inline-block text-left"
-                        onMouseEnter={() => handleMouseEnter('patient')}
-
-                    >
-                        <button
-                            className="inline-flex justify-center w-full rounded-md shadow-sm px-4 py-2 text-sm font-medium hover:bg-[#ffffff56] hover:text-[white] focus:outline-none"
-                        >
-                            Patient & Facilities
-                            <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                            </svg>
-                        </button>
-
-                        {openDropdown === 'patient' && (
-                            <div onMouseLeave={handleMouseLeave} className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                                <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">An Introduction</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Director</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Administration</a>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-
-                <div className='flex items-center h-[100%] py-1 rounded-md text-[.9rem]'>
-                    <div
-                        className="relative inline-block text-left"
-                        onMouseEnter={() => handleMouseEnter('Cells')}
-
-                    >
-                        <button
-                            className="inline-flex justify-center w-full rounded-md shadow-sm px-4 py-2 text-sm font-medium hover:bg-[#ffffff56] hover:text-[white] focus:outline-none"
-                        >
-                            Cells & Documents
-                            <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                            </svg>
-                        </button>
-
-                        {openDropdown === 'Cells' && (
-                            <div onMouseLeave={handleMouseLeave} className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                                <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">An Introduction</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Director</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Administration</a>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-
-                <div className='flex items-center h-[100%] py-1 rounded-md text-[.9rem]'>
-                    <div
-                        className="relative inline-block text-left"
-                        onMouseEnter={() => handleMouseEnter('Notice')}
-
-                    >
-                        <button
-                            className="inline-flex justify-center w-full rounded-md shadow-sm px-4 py-2 text-sm font-medium hover:bg-[#ffffff56] hover:text-[white] focus:outline-none"
-                        >
-                            Notices & Results
-                            <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                            </svg>
-                        </button>
-
-                        {openDropdown === 'Notice' && (
-                            <div onMouseLeave={handleMouseLeave} className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                                <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">An Introduction</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Director</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Administration</a>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-
-                <div className='flex items-center h-[100%] py-1 rounded-md text-[.9rem]'>
-                    <div
-                        className="relative inline-block text-left"
-                        onMouseEnter={() => handleMouseEnter('Media')}
-
-                    >
-                        <button
-                            className="inline-flex justify-center w-full rounded-md shadow-sm px-4 py-2 text-sm font-medium hover:bg-[#ffffff56] hover:text-[white] focus:outline-none"
-                        >
-                            Media
-                            <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                            </svg>
-                        </button>
-
-                        {openDropdown === 'Media' && (
-                            <div onMouseLeave={handleMouseLeave} className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                                <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">An Introduction</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Director</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Administration</a>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-
-                <div className='flex items-center h-[100%] py-1 rounded-md text-[.9rem]'>
-                    <div
-                        className="relative inline-block text-left"
-                        onMouseEnter={() => handleMouseEnter('Contact')}
-
-                    >
-                        <button
-                            className="inline-flex justify-center w-full rounded-md shadow-sm px-4 py-2 text-sm font-medium hover:bg-[#ffffff56] hover:text-[white] focus:outline-none"
-                        >
-                            Contact
-                            <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                            </svg>
-                        </button>
-
-                        {openDropdown === 'Contact' && (
-                            <div onMouseLeave={handleMouseLeave} className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                                <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">An Introduction</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Director</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Administration</a>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-
+                ))}
             </section>
-
+            
             <motion.section
                 initial={{ height: 0 }}
                 animate={{ height: isOpen ? 'auto' : 0 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                className="min-h-[6vh] overflow-hidden bg-[#4343ceda] items-center justify-center lg:hidden text-[white] pb-[1rem] ">
+                className="min-h-[4vh] overflow-hidden bg-[#4343ceda] items-center justify-center lg:hidden text-[white] pb-[1rem] ">
                 <div className='py-1 pr-2 flex justify-end ' >
                     <button onClick={toggleDropdown} ><RiMenu3Fill /></button>
                 </div>
@@ -348,7 +195,7 @@ function Header() {
                             <div
                                 key={index}
                                 style={{ borderBottom: "1px solid " }}
-                                className='w-[96%] mr-auto ml-auto  py-2  '
+                                className='w-[96%] mr-auto ml-auto   '
                             >
                                 <span
                                     onClick={() => toggleContent(index)}

@@ -1,7 +1,6 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
 
 function Links({ content }) {
-    console.log(content?.new === true);
 
     return (
         <div className='mb-7 text-xs font-[500] text-[rgb(0,0,255)] cursor-pointer   '>

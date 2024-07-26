@@ -1,5 +1,4 @@
 import { FaLongArrowAltRight } from "react-icons/fa";
-import SimpleSlider from '../../components/carousel/SimpleSlider';
 import Card from "../../components/cards/Card";
 import { FaGift } from "react-icons/fa6";
 import { AiFillSound } from "react-icons/ai";
@@ -10,6 +9,7 @@ import Data from '../../components/carousel/Data'
 import QuickLinkCard from "../../components/QuickLinkCard";
 import InfoCard from "../../components/cards/InfoCard";
 import Imagecard from "../../components/cards/Imagecard";
+import DemoCarousel from "../../components/carousel/DemoCarousel";
 function HomePage() {
 
   const data = [
@@ -132,17 +132,19 @@ function HomePage() {
 
       <section>
         <div className='overflow-hidden relative ' >
-          <SimpleSlider />
+          <div className="z-[-1] " >
+            <DemoCarousel />
+          </div>
 
           <div className='bg-[#000000f1] absolute bottom-0 w-full text-white  flex items-center py-1 ' >
 
-            <span className='flex gap-2 lg:pl-[6rem] items-center font-[500] text-sm ' >
-              <p>RIMS PATIENTS'S STATISTICS</p>
+            <span className='flex  lg:pl-[6rem] items-center font-[500] text-xs p-1 ' >
+              <p>RIMS PATIENT`&rsquo;`S STATISTICS</p>
               <FaLongArrowAltRight />
             </span>
 
-            <span className='ml-[6rem] ' >
-              <h1 className='text-[#cc0505f6] font-[500] lg:text-sm ' >
+            <span className='ml-4' >
+              <h1 className='text-[#cc0505f6] font-[500] lg:text-sm text-xs ' >
                 Date:25-07-2024 | OPD : 2196 | ADMISSION IPD : 293 | EMERGENCY : 266 |
               </h1>
             </span>
@@ -226,15 +228,13 @@ function HomePage() {
 
         <div className="grid grid-cols-3 grid-rows-1 gap-4 place-items-center cursor-pointer lg:grid-cols-4 mt-4 w-[95%] mr-auto ml-auto items-center " >
           {
-            otherInfoData.map((item,i) => (
+            otherInfoData.map((item, i) => (
               <Imagecard key={i} content={item} />
             ))
           }
         </div>
 
       </section>
-
-
 
     </section>
   )

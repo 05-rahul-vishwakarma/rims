@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.carousel .thumb {
+	display: none !important;
+}
+
+.color-change {
+	animation: colorChange 5s linear infinite;
+}
+
+@keyframes colorChange {
+	0% {
+	  background:blue;
+	}
+	100% {
+	  filter: hue-rotate(360deg);
+	}
+  }
+  

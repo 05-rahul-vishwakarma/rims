@@ -1,10 +1,10 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
 
 function QuickLinkCard({ content }) {
     return (
-        <div className='w-[248px]  lg:w-[165px] h-[105px] flex flex-col items-center justify-center gap-2  ' >
+        <div className='w-[10rem] h-[10rem] flex flex-col justify-center items-center    ' >
             <img src={content?.image} alt="" className='w-[65px] h-[65px] ' />
-            <p className='text-[#010155] font-semibold text-sm text-nowrap text-center hover:text-[#555252] active:text-[#555252] ' > {content?.title} </p>
+            <p className='break-words text-center line-clamp-1 ' > {content?.title} </p>
         </div>
     )
 }

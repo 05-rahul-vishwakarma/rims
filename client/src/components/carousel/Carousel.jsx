@@ -41,7 +41,7 @@ function Carousel({ images }) {
               alt={image.title}
             />
             <div className="absolute inset-0 flex items-end p-10 ">
-              <h2 className="text-black text-xl font-[500] ">{image?.title}</h2>
+              <h2 className="text-white text-2xl">{image.title}</h2>
             </div>
           </div>
         ))}

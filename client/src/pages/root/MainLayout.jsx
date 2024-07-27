@@ -1,13 +1,13 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+// import { Outlet } from 'react-router-dom'
 import Header from '../../components/header/Header'
 import Footer from '../../components/footer/Footer'
+import HomePage from '../root/HomePage'
 
 function MainLayout() {
     return (
-        <main className='h-screen w-vw overflow-x-hidden  ' >
+        <main className='h-screen w-screen overflow-x-hidden  ' >
             <Header />
-            <Outlet />
+            <HomePage/>
             <Footer />
         </main>
     )

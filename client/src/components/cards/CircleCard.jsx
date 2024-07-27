@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 function CircleCard({content}) {
     return (
@@ -10,7 +11,7 @@ function CircleCard({content}) {
                 alt=""
                 className="w-[85px] mt-[1.5rem] transition-transform duration-300 ease-in-out transform hover:translate-y-[-6px]"
             />
-            <article className="text-sm font-normal text-center text-nowrap break-words px-3 pt-1 ">
+            <article className="text-sm font-normal text-center px-3 pt-1 line-clamp-1  w-[80%] ">
                {content?.content}
             </article>
         </div>

@@ -1,18 +1,15 @@
+import Footer from "./components/footer/Footer"
+import Header from "./components/header/Header"
 import HomePage from "./pages/root/HomePage"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import MainLayout from "./pages/root/MainLayout"
-
 function App() {
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainLayout />} >
-          <Route path="" element={<HomePage />} />
-          <Route path="home" element={<HomePage />} />
-        </Route>
-      </Routes>
-    </Router>
+
+    <main className="overflow-x-hidden " >
+      <Header />
+      <HomePage />
+      <Footer />
+    </main>
   )
 }
 

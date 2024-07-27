@@ -3,16 +3,15 @@ import { IoIosCall } from "react-icons/io";
 import { IoMdMail } from "react-icons/io";
 import { TiMinus } from "react-icons/ti";
 import { BiSolidAdjustAlt } from "react-icons/bi";
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { RiMenu3Fill } from "react-icons/ri";
 import { IoMdArrowDropright } from "react-icons/io";
 
+
 function Header() {
 
-    const [openIndex, setOpenIndex] = useState(null);
-    const [isOpen, setIsOpen] = useState(false);
-
+    //----------------------------------- desktop header navbar -------------------------------------// 
     const menuItems = [
         { title: 'About Us', key: 'about', links: ['An Introduction', 'Director', 'Administration'] },
         { title: 'Academics', key: 'academics', links: ['Programs', 'Departments', 'Faculty'] },
@@ -34,11 +33,46 @@ function Header() {
     };
 
 
-    const toggleDropdown = () => {
-        setTimeout(() => {
-            setIsOpen(!isOpen);
-        }, 100)
+    //-------------------spring effect animation or also fixed the sticky header-------------------- //
+    const [isSticky, setIsSticky] = useState(false);
+
+    const handleScroll = () => {
+        if (window.scrollY > 40) {
+            setIsSticky(true);
+        } else {
+            setIsSticky(false);
+        }
     };
+
+    console.log(isSticky);
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ------------------------------- end the code of desktop header ---------------------------------//
+
+
+    // -------------------------------- mobile menus ---------------------------------------------------- //
+    const [openIndex, setOpenIndex] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
 
     const sections = [
         {
@@ -64,37 +98,48 @@ function Header() {
         }
     ];
 
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
+
     const toggleContent = (index) => {
         setOpenIndex(openIndex === index ? null : index);
     };
 
-    useEffect(() => {
-        let lastScrollTop = 0;
-        const header = document.getElementById('header');
-
-        const handleScroll = () => {
-            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-            if (currentScrollTop > lastScrollTop) {
-                // Scrolling down
-                header.classList.add('header-hidden');
-            } else {
-                // Scrolling up
-                header.classList.remove('header-hidden');
-            }
-
-            lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // For Mobile or negative scrolling
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    // ---------------------------------------------- end the section --------------------------------------------- //
 
 
+    // const [isSticky, setIsSticky] = useState(false);
+    // const [bounce, setBounce] = useState(false);
+
+    // const handleScroll = () => {
+    //     console.log("yeah working");
+    //     if (window.scrollY > 40) {
+    //         setIsSticky(true);
+    //         setBounce(true);
+    //     } else {
+    //         setIsSticky(false);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     window.addEventListener('scroll', handleScroll);
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll);
+    //     };
+    // }, []);
+
+    // useEffect(() => {
+    //     if (bounce) {
+    //         const timer = setTimeout(() => setBounce(false), 500);
+    //         return () => clearTimeout(timer);
+    //     }
+    // }, [bounce]);
 
 
     return (
-        <header id='header' className='w-[100%] ' >
+        <header className='w-[100%]'>
+
             <section className='grid place-items-center lg:flex lg:justify-between lg:px-[4rem]  bg-[#f8f8f8]   lg:place-items-center py-2 gap-2 ' >
 
                 <div className='lg:flex gap-[2rem]  ' >
@@ -141,44 +186,111 @@ function Header() {
                 <div className='flex justify-center  ' >
                     <center>
                         <ul>
-                            <li className='inline-block w-[120px] leading-[30px] pl-[5px] pr-[5px] text-[.8rem] bg-[#3838d19d] rounded-md text-white  m-2 hover:bg-[#3838d1f3] '>  <Link href="#" className="text-gray font-[500]  py-2 ">Departments</Link></li>
-                            <li className='inline-block w-[120px] leading-[30px] pl-[5px] pr-[5px] text-[.8rem] bg-[#3838d19d] rounded-md text-white  m-2 hover:bg-[#3838d1f3] ' > <Link href="#" className="text-gray font-[500]  py-2 ">Doctors</Link></li>
-                            <li className='inline-block w-[120px] leading-[30px] pl-[5px] pr-[5px] text-[.8rem] bg-[#3838d19d] rounded-md text-white  m-2 hover:bg-[#3838d1f3] ' > <Link href="#" className="text-gray font-[500]  py-2 ">Speciallties</Link></li>
-                            <li className='inline-block w-[120px] leading-[30px] pl-[5px] pr-[5px] text-[.8rem] bg-[#3838d19d] rounded-md text-white  m-2 hover:bg-[#3838d1f3] ' > <Link href="#" className="text-gray font-[500]  py-2 ">Patients</Link></li>
-                            <li className='inline-block w-[120px] leading-[30px] pl-[5px] pr-[5px] text-[.8rem] bg-[#3838d19d] rounded-md text-white  m-2 hover:bg-[#3838d1f3] ' > <Link href="#" className="text-gray font-[500]  py-2 ">central Libraray</Link></li>
+                            <li className='inline-block w-[120px] leading-[30px] pl-[5px] pr-[5px] text-[.8rem] bg-[#3838d19d] rounded-md text-white  m-2 hover:bg-[#3838d1f3] '>  <a href="#" className="text-gray font-[500]  py-2 ">Departments</a></li>
+                            <li className='inline-block w-[120px] leading-[30px] pl-[5px] pr-[5px] text-[.8rem] bg-[#3838d19d] rounded-md text-white  m-2 hover:bg-[#3838d1f3] ' > <a href="#" className="text-gray font-[500]  py-2 ">Doctors</a></li>
+                            <li className='inline-block w-[120px] leading-[30px] pl-[5px] pr-[5px] text-[.8rem] bg-[#3838d19d] rounded-md text-white  m-2 hover:bg-[#3838d1f3] ' > <a href="#" className="text-gray font-[500]  py-2 ">Speciallties</a></li>
+                            <li className='inline-block w-[120px] leading-[30px] pl-[5px] pr-[5px] text-[.8rem] bg-[#3838d19d] rounded-md text-white  m-2 hover:bg-[#3838d1f3] ' > <a href="#" className="text-gray font-[500]  py-2 ">Patients</a></li>
+                            <li className='inline-block w-[120px] leading-[30px] pl-[5px] pr-[5px] text-[.8rem] bg-[#3838d19d] rounded-md text-white  m-2 hover:bg-[#3838d1f3] ' > <a href="#" className="text-gray font-[500]  py-2 ">central Libraray</a></li>
                         </ul>
                     </center>
                 </div>
             </section>
 
-            <section className='min-h-[6vh] bg-[#3838d19d] lg:flex items-center justify-center hidden md:block z-[2] '>
-                {menuItems.map((item) => (
-                    <div key={item.key}
-                        className='relative flex items-center h-[100%] py-1 rounded-md text-[.9rem] z-10 '
-                        onMouseEnter={() => handleMouseEnter(item.key)}
-                        onMouseLeave={handleMouseLeave}
+            {
+                isSticky ?
+
+
+                    <motion.section
+                        initial={{ height: 0 }}
+                        animate={{ height: "6vh" }}
+                        transition={{ duration: 0.5, ease: 'easeOut' }}
+                        className=" bg-[#3838d1d8] text-[white] lg:flex items-center justify-center hidden md:block z-[2] fixed top-0  w-full"
                     >
-                        <button
-                            className="inline-flex justify-center w-full rounded-md shadow-sm px-4 py-2 text-sm font-medium hover:bg-[#ffffff56] hover:text-[white] focus:outline-none"
-                        >
-                            {item.title}
-                            <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                            </svg>
-                        </button>
-                        {openDropdown === item.key && (
-                            <div className="origin-top-right absolute top-[100%] w-56 rounded-md shadow-lg bg-[#ffffff65] p-2  ring-1 ring-black ring-opacity-5">
-                                <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                    {item.links.map((link, index) => (
-                                        <a key={index} href="#" className="block px-4 py-2 text-sm text-gray-700 rounded-md hover:bg-gray-100" role="menuitem">{link}</a>
-                                    ))}
-                                </div>
+                        {menuItems.map((item) => (
+                            <div
+                                key={item.key}
+                                className="relative flex items-center h-full py-1 rounded-md text-[.9rem] z-10"
+                                onMouseEnter={() => handleMouseEnter(item.key)}
+                                onMouseLeave={handleMouseLeave}
+                            >
+                                <button
+                                    className="inline-flex justify-center w-full rounded-md shadow-sm px-4 py-2 text-sm font-medium hover:bg-[#ffffff56] hover:text-[white] focus:outline-none"
+                                >
+                                    {item.title}
+                                    <svg
+                                        className="-mr-1 ml-2 h-5 w-5"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                </button>
+                                {openDropdown === item.key && (
+                                    <div className="origin-top-right absolute top-[102%] w-56 rounded-md shadow-lg bg-[#ffffffd8] p-2 ring-1 ring-black ring-opacity-5">
+                                        <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                            {item.links.map((link, index) => (
+                                                <a key={index} href="#" className="block px-4 py-2 text-sm text-gray-700 rounded-md hover:bg-[#3838d1bb] hover:text-[white] " role="menuitem">
+                                                    {link}
+                                                </a>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
-                        )}
-                    </div>
-                ))}
-            </section>
-            
+                        ))}
+                    </motion.section>
+
+                    :
+                    <section
+                        className="min-h-[6vh] bg-[#3838d19d] lg:flex items-center justify-center hidden md:block z-[2]   w-full"
+                    >
+                        {menuItems.map((item) => (
+                            <div
+                                key={item.key}
+                                className="relative flex items-center h-full py-1 rounded-md text-[.9rem] z-10"
+                                onMouseEnter={() => handleMouseEnter(item.key)}
+                                onMouseLeave={handleMouseLeave}
+                            >
+                                <button
+                                    className="inline-flex justify-center w-full rounded-md shadow-sm px-4 py-2 text-sm font-medium hover:bg-[#ffffff56] hover:text-[white] focus:outline-none"
+                                >
+                                    {item.title}
+                                    <svg
+                                        className="-mr-1 ml-2 h-5 w-5"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                </button>
+                                {openDropdown === item.key && (
+                                    <div className="origin-top-right absolute top-[105%] w-56 rounded-md shadow-lg bg-[#ffffffd8] p-2 ring-1 ring-black ring-opacity-5">
+                                        <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                            {item.links.map((link, index) => (
+                                                <a key={index} href="#" className="block px-4 py-2 text-sm text-gray-700 rounded-md hover:bg-[#3838d1bb] hover:text-[white] " role="menuitem">
+                                                    {link}
+                                                </a>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </section>
+            }
+
             <motion.section
                 initial={{ height: 0 }}
                 animate={{ height: isOpen ? 'auto' : 0 }}
@@ -228,6 +340,7 @@ function Header() {
                 }
 
             </motion.section>
+
         </header>
     )
 }

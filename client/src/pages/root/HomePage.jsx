@@ -4,12 +4,12 @@ import { FaGift } from "react-icons/fa6";
 import { AiFillSound } from "react-icons/ai";
 import { BsPersonLinesFill } from "react-icons/bs";
 import CircleCard from "../../components/cards/CircleCard";
-import Carousel from '../../components/carousel/Carousel'
 import Data from '../../components/carousel/Data'
 import QuickLinkCard from "../../components/QuickLinkCard";
 import InfoCard from "../../components/cards/InfoCard";
 import Imagecard from "../../components/cards/Imagecard";
 import DemoCarousel from "../../components/carousel/DemoCarousel";
+import Carousel from "../../components/carousel/Carousel";
 function HomePage() {
 
   const data = [
@@ -139,7 +139,7 @@ function HomePage() {
           <div className='bg-[#000000f1] absolute bottom-0 w-full text-white  flex items-center py-1 ' >
 
             <span className='flex  lg:pl-[6rem] items-center font-[500] text-xs p-1 ' >
-              <p>RIMS PATIENT`&rsquo;`S STATISTICS</p>
+              <p>RIMS PATIENT&rsquo;S STATISTICS</p>
               <FaLongArrowAltRight />
             </span>
 
@@ -212,7 +212,7 @@ function HomePage() {
         <div className="lg:flex w-[95%] mr-auto ml-auto items-center " >
           {
             rimsInfo.map((item, i) => (
-              <InfoCard content={item} />
+              <InfoCard content={item} key={i} />
             ))
           }
         </div>

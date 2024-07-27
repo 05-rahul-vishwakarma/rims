@@ -1,25 +1,60 @@
 import FooterNavigation from "./FooterNavigation"
+import { CiLocationOn } from "react-icons/ci";
+import { MdEmail } from "react-icons/md";
+import { MdLocalPhone } from "react-icons/md";
+import { FaAmbulance } from "react-icons/fa";
+import { GoDotFill } from "react-icons/go";
+
 
 function Footer() {
 
     const navigationDate = [
         {
-            link: "copyright Policies"
+            icon: <GoDotFill className='mt-0.5 ' />,
+            content: "copyright Policies"
         },
         {
-            link: "Terms & Conditions"
+            icon: <GoDotFill className='mt-0.5 ' />,
+            content: "Terms & Conditions"
         },
         {
-            link: "Disclaimer"
+            icon: <GoDotFill className='mt-0.5 ' />,
+            content: "Disclaimer"
         },
         {
-            link: "Hyperlink Policy"
+            icon: <GoDotFill className='mt-0.5 ' />,
+            content: "Hypercontent Policy"
         },
         {
-            link: "Privacy Policy"
+            icon: <GoDotFill className='mt-0.5 ' />,
+            content: "Privacy Policy"
         },
         {
-            link: "Old Website"
+            icon: <GoDotFill className='mt-0.5 ' />,
+            content: "Old Website"
+        }
+    ]
+
+    const contactData = [
+        {
+            icon: <CiLocationOn className="h-[2rem] w-[2rem]" /> ,
+            content: "Rajendra Institute of Medical Sciences bariatu , Ranchi -834009, jharkhand, India "
+        },
+        {
+            icon: <MdEmail className=" h-[1.5rem] w-[1.5rem] " /> ,
+            content: "mrsimsranchi[at]gmail[dot]com/directorrimsranchi[at]gmail[dot]com"
+        },
+        {
+            icon: <MdLocalPhone className="h-[1.5rem] w-[1.5rem]  " /> ,
+            content: "+91-651-2541533/2545404"
+        },
+        {
+            icon: <MdLocalPhone className="h-[1.5rem] w-[1.5rem]  " /> ,
+            content: "Emergency : +91-651-254471"
+        },
+        {
+            icon: <FaAmbulance className="h-[1.5rem] w-[1.5rem]  " /> ,
+            content: "Ambulance : +91-651-2547260"
         }
     ]
 
@@ -63,7 +98,7 @@ function Footer() {
                     </div>
 
                     {
-                        navigationDate.map((item, i) => (
+                        contactData .map((item, i) => (
                             <FooterNavigation key={i} content={item} />
                         ))
                     }

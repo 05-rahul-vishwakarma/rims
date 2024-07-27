@@ -20,7 +20,7 @@ function InfoCard({ content }) {
     return (
         <div style={{
             border: "1px solid lightgray",
-        }} className="lg:w-[30%] w-[95%]  mr-auto ml-auto  h-[400px] rounded-md mt-4 shadow-md " >
+        }} className="lg:w-[30%] w-[95%]  mr-auto ml-auto  h-[400px] rounded-md mt-4 shadow-md relative " >
             <div style={{
                 background: content?.headerColor
             }} className={`flex items-center py-2 gap-3  text-[#fffffffd] rounded-tr-md rounded-tl-md bg-[#9b4514de] `} >
@@ -33,6 +33,10 @@ function InfoCard({ content }) {
                         <Links key={i} content={item} />
                     ))
                 }
+            
+            <span className="absolute bottom-1 left-[45%] right-[45%] font-bold " >
+                more
+            </span>
             </div>
         </div>
     )
